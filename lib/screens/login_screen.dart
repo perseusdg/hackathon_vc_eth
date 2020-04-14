@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hackathon/utilities/constants.dart';
 import 'package:hackathon/services/loginWithGoogle.dart';
-import 'package:hackathon/screens/firstscreen.dart';
+import 'package:hackathon/screens/firstscreenRegister.dart';
 
 class LoginScreen extends StatefulWidget {
   final Function toggleView;
