@@ -32,7 +32,7 @@ class _SecondRegisterScreenState extends State<SecondRegisterScreen> {
         Text(
           'Are you a Startup or an Investor?',
           style: TextStyle(
-            color: Colors.orange[300],
+            color: Colors.white,
             fontWeight: FontWeight.bold,
             fontFamily: 'OpenSans',
             fontSize: 20.0,
