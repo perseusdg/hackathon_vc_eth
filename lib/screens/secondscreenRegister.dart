@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hackathon/screens/investor/investorFirstScreen.dart';
+import 'package:hackathon/screens/startup/startupFirstScreen.dart';
 import 'package:hackathon/services/loginWithGoogle.dart';
 import 'package:hackathon/utilities/constants.dart';
 
@@ -23,7 +25,7 @@ class _SecondRegisterScreenState extends State<SecondRegisterScreen> {
     }
   }
 
-  Widget _checkInvestorOrStartup(){
+  Widget checkInvestorOrStartup(){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -100,6 +102,65 @@ class _SecondRegisterScreenState extends State<SecondRegisterScreen> {
     );
   }
 
+  Widget continueNextPage(){
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 15.0),
+          alignment: Alignment.bottomRight,
+          child: Row(
+            children: <Widget>[
+              SizedBox(width: 180,),
+              RaisedButton(
+                elevation: 5.0,
+                onPressed: () async{
+                  if(investor){
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) {
+                            return InvestorFirstPage();
+                          }
+                      ),
+                    );
+                  }
+                  else{
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) {
+                            return StartupFirstPage();
+                          }
+                      ),
+                    );
+                  }
+                },
+                padding: EdgeInsets.all(15.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)
+                ),
+                color: Colors.orange,
+                child: Text(
+                  'Continue',
+                  style: TextStyle(
+                    color: Color(0xFF527DAA),
+                    letterSpacing: 1.5,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'OpenSans',
+                  ),
+                ),
+
+              )
+            ],
+          ),
+        ),
+      ],
+
+    );
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,7 +186,7 @@ class _SecondRegisterScreenState extends State<SecondRegisterScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      SizedBox(height: 150.0,),
+                      SizedBox(height: 170.0,),
                       Text(
                         "Let's get on with it",
                           textAlign: TextAlign.center,
@@ -136,8 +197,10 @@ class _SecondRegisterScreenState extends State<SecondRegisterScreen> {
                             fontSize:35.0
                           ),
                       ),
-                      SizedBox(height: 30.0),
-                      _checkInvestorOrStartup(),
+                      SizedBox(height: 40.0),
+                      checkInvestorOrStartup(),
+                      SizedBox(height: 40.0,),
+                      continueNextPage(),
                     ],
                   ),
                 ),
