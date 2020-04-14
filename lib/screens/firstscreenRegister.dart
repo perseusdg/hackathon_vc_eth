@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hackathon/services/loginWithGoogle.dart';
 import 'package:hackathon/screens/login_screen.dart';
+import 'package:hackathon/screens/secondscreenRegister.dart';
 
 
 class FirstScreen extends StatefulWidget {
@@ -71,7 +72,7 @@ class _FirstScreenState extends State<FirstScreen> {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) {
-                                    return null;
+                                    return SecondRegisterScreen();
                                   }
                               ),
                             );
