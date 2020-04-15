@@ -30,9 +30,6 @@ Future<bool> signInWithGoogle() async {
   email = user.email;
   imageUrl = user.photoUrl;
 
-
-
-
   assert(!user.isAnonymous);
   assert(await user.getIdToken() != null);
 
