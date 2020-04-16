@@ -1,4 +1,4 @@
-import 'package:mobile_sidebar/mobile_sidebar.dart';
+import 'package:hackathon/SidebarStuff/mobile_sidebar.dart';
 import 'package:hackathon/SidebarStuff/YourDefaultPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
