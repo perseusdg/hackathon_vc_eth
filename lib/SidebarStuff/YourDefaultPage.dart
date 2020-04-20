@@ -17,8 +17,7 @@ class YourDefaultPage extends StatelessWidget {
           children: <Widget>[
             customicon,
             Text('$text come here!',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20.0),
+              style: Theme.of(context).textTheme.title
             )
           ]
         ), 

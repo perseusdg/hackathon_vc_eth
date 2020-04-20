@@ -22,11 +22,15 @@ TabChild sideBarListObjSpecific(Icon customicon,String text, Color colortobepass
 
 // <Frontend>
 class SideBarScreen extends StatefulWidget {
+  final Function(ThemeData) onThemeChange;
   @override
-  _SideBarScreen createState() => _SideBarScreen();
+  SideBarScreen(this.onThemeChange);
+  _SideBarScreen createState() => _SideBarScreen(onThemeChange);
 }
 
 class _SideBarScreen extends State<SideBarScreen> {
+  _SideBarScreen(this.onThemeChange);
+  final Function(ThemeData) onThemeChange;
   int index = 0;
   double iconsize = 40.0;
   bool searching = true;
@@ -35,6 +39,7 @@ class _SideBarScreen extends State<SideBarScreen> {
     return SafeArea(
       child: Scaffold(
         body: MobileSidebar(
+          theme: ThemeData.dark(),
           currentIndex: index,
           onTabChanged: (val) {
             if (mounted)
@@ -57,14 +62,14 @@ class _SideBarScreen extends State<SideBarScreen> {
           },
           showSearchButton: true,
           tabs: <TabChild>[
-            sideBarListObjGeneric(Icon(Icons.favorite,color: Colors.pinkAccent,size: iconsize,),'Your Favs',Colors.pinkAccent[100]),
-            sideBarListObjGeneric(Icon(Icons.thumb_up,color: Colors.blue,size: iconsize,),'Your Likes',Colors.blue[100]),
-            sideBarListObjGeneric(Icon(Icons.chat,color: Colors.green,size: iconsize,),'Your Chats',Colors.green[100]),
-            sideBarListObjGeneric(Icon(Icons.account_circle,color: Colors.deepOrangeAccent,size: iconsize,),'Your Profile', Colors.grey[100]),
-            sideBarListObjSpecific(Icon(Icons.settings,color: Colors.grey,size: iconsize,),'Settings', Colors.grey[100], SettingsScreen()),
-            sideBarListObjGeneric(Icon(Icons.share,color: Colors.green,size: iconsize,),'Share (AppName)',Colors.green[100]),
-            sideBarListObjGeneric(Icon(Icons.bug_report,color: Colors.red,size: iconsize,),'Report A Bug',Colors.red[100]),
-            sideBarListObjGeneric(Icon(Icons.contact_mail,color: Colors.blue,size: iconsize,),'Contact Us',Colors.blue[100]),
+            sideBarListObjGeneric(Icon(Icons.favorite,color: Colors.pinkAccent,size: iconsize,),'Your Favs',Colors.pink[colorDarkness]),
+            sideBarListObjGeneric(Icon(Icons.thumb_up,color: Colors.blue,size: iconsize,),'Your Likes',Colors.blue[colorDarkness]),
+            sideBarListObjGeneric(Icon(Icons.chat,color: Colors.green,size: iconsize,),'Your Chats',Colors.green[colorDarkness]),
+            sideBarListObjGeneric(Icon(Icons.account_circle,color: Colors.deepOrangeAccent,size: iconsize,),'Your Profile', Colors.red[colorDarkness]),
+            sideBarListObjSpecific(Icon(Icons.settings,color: Colors.grey,size: iconsize,),'Settings', Colors.grey[colorDarkness], SettingsScreen(onThemeChange)),
+            sideBarListObjGeneric(Icon(Icons.share,color: Colors.green,size: iconsize,),'Share (AppName)',Colors.green[colorDarkness]),
+            sideBarListObjGeneric(Icon(Icons.bug_report,color: Colors.red,size: iconsize,),'Report A Bug',Colors.red[colorDarkness]),
+            sideBarListObjGeneric(Icon(Icons.contact_mail,color: Colors.blue,size: iconsize,),'Contact Us',Colors.blue[colorDarkness]),
           ],
         ),
       )

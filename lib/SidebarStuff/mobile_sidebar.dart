@@ -38,6 +38,7 @@ class MobileSidebar extends StatelessWidget {
   final ValueChanged<int> onTabChanged;
   final ValueChanged<String> searchChanged;
   final double tabWidth;
+  final ThemeData theme;
 
   MobileSidebar({
     Key key,
@@ -45,6 +46,7 @@ class MobileSidebar extends StatelessWidget {
     @required this.tabs,
     @required this.onTabChanged,
     @required this.currentIndex,
+    @required this.theme,
     this.ctaBuilder,
     this.tabWidth = 30.0,
     this.accountBuilder,
@@ -63,10 +65,10 @@ class MobileSidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const kMobileBreakpoint = 720.0;
-    final theme = Theme.of(context) ??
-        (Theme.of(context).brightness == Brightness.light
-            ? ThemeData.light()
-            : ThemeData.dark());
+    // final theme = Theme.of(context) ??
+    //     (Theme.of(context).brightness == Brightness.light
+    //         ? ThemeData.light()
+    //         : ThemeData.dark());
     return LayoutBuilder(
       builder: (context, dimens) {
         final _titles = tabs.map((t) => t.title).toList();
