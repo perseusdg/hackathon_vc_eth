@@ -1,33 +1,40 @@
 import 'package:flutter/material.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:hackathon/screens/settings_screen.dart';
 
-  @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       title: 'Settings UI Demo',
-//       theme: ThemeData(
-//         primarySwatch: Colors.deepOrange,
-//         brightness: Brightness.light,
-//       ),
-//       darkTheme: ThemeData(
-//         primarySwatch: Colors.deepPurple,
-//         accentColor: Colors.deepPurple,
-//         brightness: Brightness.dark,
-//       ),
-//       home: SettingsScreen(),
-//     );
-// }
+bool value=false;
+int colorDarkness;
+
+ThemeData darkTheme= ThemeData(
+  primarySwatch: Colors.deepPurple,
+  accentColor: Colors.deepPurple,
+  brightness: Brightness.dark,
+);
+
+ThemeData lightTheme=ThemeData(
+  primarySwatch: Colors.deepOrange,
+  brightness: Brightness.light,
+);
 
 class SettingsScreen extends StatefulWidget{
-    @override
-  _SettingsScreen createState() => _SettingsScreen();
+  final Function(ThemeData) onThemeChange;
+  @override
+  SettingsScreen(this.onThemeChange);
+  _SettingsScreen createState() => _SettingsScreen(onThemeChange);
 }
 
-bool value = true;
+ThemeData inUse;
 
 class _SettingsScreen extends State<SettingsScreen> {
+
+  changeValue(bool newValue) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool('value', value);
+  }
+
+  _SettingsScreen(this.onThemeChange);
+  final Function(ThemeData) onThemeChange;
   @override
   Widget build(BuildContext context) {
     return SettingsList(
@@ -49,6 +56,15 @@ class _SettingsScreen extends State<SettingsScreen> {
                 onToggle: (bool newValue) {
                   setState(() {
                     value= newValue;
+                    if(value){
+                      inUse=darkTheme;
+                      colorDarkness=900;
+                    } else{
+                      inUse=lightTheme;
+                      colorDarkness=100;
+                    }
+                    onThemeChange(inUse);
+                    changeValue(newValue);
                   });
                 },
               ),
@@ -67,11 +83,8 @@ class _SettingsScreen extends State<SettingsScreen> {
               SettingsTile.switchTile(
                 title: 'Notifications',
                 leading: Icon(Icons.notifications),
-                switchValue: value,
+                switchValue: true,
                 onToggle: (bool newValue) {
-                  setState(() {
-                    value= newValue;
-                  });
                 },
               ),
             ],
@@ -80,19 +93,3 @@ class _SettingsScreen extends State<SettingsScreen> {
     );
   }
 }
-
-// class SettingsPage extends StatefulWidget {
-//     _loadCounter() async {
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     setState(() {
-//       _darkmode = (prefs.getInt('darkmode') ?? 0);
-//     });
-//   }
-//     _SideBarScreen createState() => _SideBarScreen();
-// }
-
-// Widget build(BuildContext context) {
-//     return Container(
-    
-//     );
-//   }
