@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "1070130617030-bftns9hvqcr2ls2t4jq1g0q20c8o0an4.apps.googleusercontent.com",
+          "client_id": "1070130617030-p6pm1ap9rcgut0vvtp2aq3s8og5a5ia4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.hackathonethaum.hackathon",
-            "certificate_hash": "5198083cb27f4b2f52087df76010dda6a2b7bb57"
+            "certificate_hash": "454cbabc34805e254edcc8d3d614182b1caf714b"
           }
         },
         {
