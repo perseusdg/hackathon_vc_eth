@@ -4,7 +4,7 @@ import 'package:hackathon/screens/investor/investorFirstScreen.dart';
 import 'package:hackathon/screens/startup/startupFirstScreen.dart';
 import 'package:hackathon/services/loginWithGoogle.dart';
 import 'package:hackathon/utilities/constants.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SecondRegisterScreen extends StatefulWidget {
   @override
@@ -16,16 +16,15 @@ class _SecondRegisterScreenState extends State<SecondRegisterScreen> {
   bool startup = false;
   bool pressAttention;
 
-  Color setcolor(bool investor,bool startup){
-    if(startup){
+  Color setcolor(bool investor, bool startup) {
+    if (startup) {
       return Colors.orange;
-    }
-    else{
+    } else {
       return Colors.white;
     }
   }
 
-  Widget checkInvestorOrStartup(){
+  Widget checkInvestorOrStartup() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -45,10 +44,12 @@ class _SecondRegisterScreenState extends State<SecondRegisterScreen> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              SizedBox(width: 40.0,),
+              SizedBox(
+                width: 40.0,
+              ),
               RaisedButton(
                 elevation: 5.0,
-                onPressed: () async{
+                onPressed: () async {
                   setState(() {
                     investor = false;
                     startup = true;
@@ -70,10 +71,12 @@ class _SecondRegisterScreenState extends State<SecondRegisterScreen> {
                   ),
                 ),
               ),
-              SizedBox(width: 20.0,),
+              SizedBox(
+                width: 20.0,
+              ),
               RaisedButton(
                 elevation: 5.0,
-                onPressed: () async{
+                onPressed: () async {
                   setState(() {
                     investor = true;
                     startup = false;
@@ -102,8 +105,7 @@ class _SecondRegisterScreenState extends State<SecondRegisterScreen> {
     );
   }
 
-  Widget continueNextPage(){
-
+  Widget continueNextPage() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -112,33 +114,29 @@ class _SecondRegisterScreenState extends State<SecondRegisterScreen> {
           alignment: Alignment.bottomRight,
           child: Row(
             children: <Widget>[
-              SizedBox(width: 180,),
+              SizedBox(
+                width: 180,
+              ),
               RaisedButton(
                 elevation: 5.0,
-                onPressed: () async{
-                  if(investor){
+                onPressed: () async {
+                  if (investor) {
                     Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) {
-                            return InvestorFirstPage();
-                          }
-                      ),
+                      MaterialPageRoute(builder: (context) {
+                        return InvestorFirstPage();
+                      }),
                     );
-                  }
-                  else{
+                  } else {
                     Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) {
-                            return StartupFirstPage();
-                          }
-                      ),
+                      MaterialPageRoute(builder: (context) {
+                        return StartupFirstPage();
+                      }),
                     );
                   }
                 },
                 padding: EdgeInsets.all(15.0),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)
-                ),
+                    borderRadius: BorderRadius.circular(10.0)),
                 color: Colors.orange,
                 child: Text(
                   'Continue',
@@ -150,15 +148,12 @@ class _SecondRegisterScreenState extends State<SecondRegisterScreen> {
                     fontFamily: 'OpenSans',
                   ),
                 ),
-
               )
             ],
           ),
         ),
       ],
-
     );
-
   }
 
   @override
@@ -186,20 +181,23 @@ class _SecondRegisterScreenState extends State<SecondRegisterScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      SizedBox(height: 170.0,),
+                      SizedBox(
+                        height: 170.0,
+                      ),
                       Text(
                         "Let's get on with it",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
                             color: Colors.orange[300],
                             fontFamily: 'OpenSans',
                             fontWeight: FontWeight.bold,
-                            fontSize:35.0
-                          ),
+                            fontSize: 35.0),
                       ),
                       SizedBox(height: 40.0),
                       checkInvestorOrStartup(),
-                      SizedBox(height: 40.0,),
+                      SizedBox(
+                        height: 40.0,
+                      ),
                       continueNextPage(),
                     ],
                   ),

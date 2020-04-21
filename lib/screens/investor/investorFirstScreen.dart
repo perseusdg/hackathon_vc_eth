@@ -3,7 +3,9 @@ import 'package:hackathon/services/loginWithGoogle.dart';
 import 'package:hackathon/screens/secondscreenRegister.dart';
 import 'package:hackathon/utilities/constants.dart';
 import 'package:flutter/services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
+final userReference = Firestore.instance.collection(uid);
 
 class InvestorFirstPage extends StatefulWidget {
   @override
@@ -16,7 +18,7 @@ class _InvestorFirstPageState extends State<InvestorFirstPage> {
   DateTime dateTimeInvestor = null;
   String level;
   String fieldOfFunding;
-  String InvestorWants=" ";
+  String InvestorWants = " ";
   List<String> fundinglevel = [
     'Pre seed',
     'Seed',
@@ -98,7 +100,9 @@ class _InvestorFirstPageState extends State<InvestorFirstPage> {
             onPressed: () {
               showDatePicker(
                 context: context,
-                initialDate: dateTimeInvestor == null ? DateTime.now() : dateTimeInvestor,
+                initialDate: dateTimeInvestor == null
+                    ? DateTime.now()
+                    : dateTimeInvestor,
                 firstDate: DateTime(200),
                 lastDate: DateTime.now(),
                 builder: (BuildContext context, Widget child) {
@@ -306,6 +310,7 @@ class _InvestorFirstPageState extends State<InvestorFirstPage> {
       ],
     );
   }
+
   Widget _buildInvestorWants() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -388,7 +393,19 @@ class _InvestorFirstPageState extends State<InvestorFirstPage> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () async {},
+        onPressed: () async {
+          await userReference.document("details").setData({
+            "name": name,
+            "organizationType": "investor",
+            "photo": imageUrl,
+            "dateEstablished": dateTimeInvestor,
+            "description": InvestorDescription,
+            "investprName": investorName,
+            "currentFundingLevel": level,
+            "currentFieldOfinterest": fieldOfFunding,
+            "InvestorRequirements": InvestorWants,
+          });
+        },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
