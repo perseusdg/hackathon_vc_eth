@@ -5,6 +5,10 @@ import 'package:hackathon/screens/secondscreenRegister.dart';
 import 'package:hackathon/utilities/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hackathon/services/loginWithGoogle.dart';
+import 'package:path/path.dart' as Path;
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
 
 final useReference = Firestore.instance.collection(uid);
 
@@ -14,7 +18,9 @@ class StartupFirstPage extends StatefulWidget {
 }
 
 class _StartupFirstPageState extends State<StartupFirstPage> {
+  String _uploadedFileUrl;
   String startupName = " ";
+  String stateText = " ";
   String startupDescription = " ";
   DateTime dateTime = null;
   String level;
@@ -34,6 +40,28 @@ class _StartupFirstPageState extends State<StartupFirstPage> {
     'Agriculture',
     'Others'
   ];
+
+  File _video;
+  _pickvideo() async {
+    File video = await ImagePicker.pickVideo(source: ImageSource.gallery);
+    setState(() {
+      _video = video;
+      this.stateText = Path.basename(_video.path);
+    });
+  }
+
+  Future uploadFile() async {
+    StorageReference storageReference = FirebaseStorage.instance
+        .ref()
+        .child('${uid}/${Path.basename(_video.path)}');
+    StorageUploadTask uploadTask = storageReference.putFile(_video);
+    await uploadTask.onComplete;
+    storageReference.getDownloadURL().then((fileUrl) {
+      setState(() {
+        _uploadedFileUrl = fileUrl;
+      });
+    });
+  }
 
   Widget _buildStartupTF() {
     return Column(
@@ -301,7 +329,6 @@ class _StartupFirstPageState extends State<StartupFirstPage> {
                 )),
             onChanged: (val) async {
               setState(() => startupDescription = val);
-              print(startupDescription);
             },
           ),
         ),
@@ -323,20 +350,34 @@ class _StartupFirstPageState extends State<StartupFirstPage> {
           ),
         ),
         SizedBox(height: 5.0),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 40.0,
-          child: Row(
-            children: <Widget>[
-              SizedBox(
-                width: 15.0,
-              ),
-              Icon(
-                Icons.video_library,
-                color: Colors.black,
-              )
-            ],
+        GestureDetector(
+          onTap: () {
+            _pickvideo();
+          },
+          child: Container(
+            alignment: Alignment.centerLeft,
+            decoration: kBoxDecorationStyle,
+            height: 60.0,
+            child: Row(
+              children: <Widget>[
+                SizedBox(
+                  width: 5.0,
+                ),
+                Icon(
+                  Icons.video_library,
+                  color: Colors.black,
+                ),
+                Text(
+                  stateText,
+                  overflow: TextOverflow.clip,
+                  maxLines: 2,
+                  style: TextStyle(
+                      color: Colors.white54,
+                      fontFamily: 'OpenSans',
+                      fontSize: 14.0),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -349,8 +390,9 @@ class _StartupFirstPageState extends State<StartupFirstPage> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () async {
-          await useReference.document("details").setData({
+        onPressed: () {
+          uploadFile();
+          useReference.document("details").setData({
             "name": name,
             "organizationType": "startup",
             "photo": imageUrl,
@@ -359,6 +401,7 @@ class _StartupFirstPageState extends State<StartupFirstPage> {
             "startupName": startupName,
             "currentFundingLevel": level,
             "currentFieldOfWork": fieldOfWork,
+            "FirstVideo": _uploadedFileUrl,
           });
         },
         padding: EdgeInsets.all(15.0),
