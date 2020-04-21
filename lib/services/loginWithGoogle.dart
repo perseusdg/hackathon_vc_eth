@@ -7,12 +7,12 @@ String imageUrl;
 String name;
 String email;
 String displayName;
-
+String uid;
 
 Future<bool> signInWithGoogle() async {
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
   final GoogleSignInAuthentication googleSignInAuthentication =
-  await googleSignInAccount.authentication;
+      await googleSignInAccount.authentication;
   print("hello");
 
   final AuthCredential credential = GoogleAuthProvider.getCredential(
@@ -30,14 +30,13 @@ Future<bool> signInWithGoogle() async {
   name = user.displayName;
   email = user.email;
   imageUrl = user.photoUrl;
-  print(imageUrl);
+  uid = user.uid;
 
   assert(!user.isAnonymous);
   assert(await user.getIdToken() != null);
 
   final FirebaseUser currentUser = await _auth.currentUser();
   assert(user.uid == currentUser.uid);
-
 }
 
 void signOutGoogle() async {
