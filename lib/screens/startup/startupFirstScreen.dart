@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hackathon/screens/startup/startupHome.dart';
 import 'package:hackathon/services/loginWithGoogle.dart';
 import 'package:hackathon/screens/secondscreenRegister.dart';
 import 'package:hackathon/utilities/constants.dart';
@@ -402,7 +403,14 @@ class _StartupFirstPageState extends State<StartupFirstPage> {
             "currentFundingLevel": level,
             "currentFieldOfWork": fieldOfWork,
             "FirstVideo": _uploadedFileUrl,
-          });
+          }
+          );
+
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) {
+                return StartupList();
+              })
+          );
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(

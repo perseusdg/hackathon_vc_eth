@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'utilities/Investor.dart';
+import 'Investor.dart';
 import 'package:youtube_player/youtube_player.dart';
 
 

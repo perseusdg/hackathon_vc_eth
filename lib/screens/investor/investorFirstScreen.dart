@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon/screens/investor/investorHome.dart';
 import 'package:hackathon/services/loginWithGoogle.dart';
 import 'package:hackathon/screens/secondscreenRegister.dart';
 import 'package:hackathon/utilities/constants.dart';
@@ -404,7 +405,15 @@ class _InvestorFirstPageState extends State<InvestorFirstPage> {
             "currentFundingLevel": level,
             "currentFieldOfinterest": fieldOfFunding,
             "InvestorRequirements": InvestorWants,
-          });
+          }
+          );
+
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) {
+              return InvestorList();
+            }),
+          );
+
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(

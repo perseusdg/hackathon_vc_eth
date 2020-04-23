@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hackathon/InvestorCard.dart';
+import 'package:hackathon/utilities/InvestorCard.dart';
 import 'package:hackathon/utilities/Investor.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
