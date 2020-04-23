@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hackathon/services/loginWithGoogle.dart';
-import 'package:hackathon/screens/login_screen.dart';
 import 'package:hackathon/screens/secondscreenRegister.dart';
-
+import 'package:hackathon/services/loginWithGoogle.dart';
 
 class FirstScreen extends StatefulWidget {
   @override
@@ -11,12 +9,21 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
+  dynamic checkAvailability() {
+    if (imageUrl != null) {
+      return (NetworkImage(imageUrl));
+    } else {
+      return (NetworkImage(
+          "https://www.google.com/url?sa=i&url=https%3A%2F%2Ffavpng.com%2Fpng_view%2Fawesome-font-awesome-user-font-png%2FijN4xsWy&psig=AOvVaw17x8HqxaxB6yZU16f2LIyC&ust=1587737135047000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMCizvLb_ugCFQAAAAAdAAAAABAD"));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark,
-        child:GestureDetector(
+        child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: Stack(
             children: <Widget>[
@@ -47,13 +54,15 @@ class _FirstScreenState extends State<FirstScreen> {
                           fontSize: 45.0,
                         ),
                       ),
-                      SizedBox(height: 40.0,),
+                      SizedBox(
+                        height: 40.0,
+                      ),
                       CircleAvatar(
-                        backgroundImage: NetworkImage(imageUrl),
+                        backgroundImage: checkAvailability(),
                         radius: 60.0,
                         backgroundColor: Colors.orange,
                       ),
-                      SizedBox(height:30.0),
+                      SizedBox(height: 30.0),
                       Text(
                         '${name} We would like to know a bit more about you ,in order to serve you better',
                         textAlign: TextAlign.center,
@@ -64,17 +73,17 @@ class _FirstScreenState extends State<FirstScreen> {
                           fontFamily: 'OpenSans',
                         ),
                       ),
-                      SizedBox(height: 30.0,),
+                      SizedBox(
+                        height: 30.0,
+                      ),
                       Container(
-                        alignment:Alignment.bottomRight,
+                        alignment: Alignment.bottomRight,
                         child: RaisedButton(
-                          onPressed:() {
+                          onPressed: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) {
-                                    return SecondRegisterScreen();
-                                  }
-                              ),
+                              MaterialPageRoute(builder: (context) {
+                                return SecondRegisterScreen();
+                              }),
                             );
                           },
                           padding: EdgeInsets.all(15.0),
@@ -98,24 +107,10 @@ class _FirstScreenState extends State<FirstScreen> {
                   ),
                 ),
               )
-
             ],
           ),
-        ) ,
+        ),
       ),
     );
-    }
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

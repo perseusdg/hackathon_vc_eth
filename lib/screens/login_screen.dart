@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hackathon/utilities/constants.dart';
-import 'package:hackathon/services/loginWithGoogle.dart';
 import 'package:hackathon/screens/firstscreenRegister.dart';
+import 'package:hackathon/services/loginWithGoogle.dart';
+import 'package:hackathon/utilities/constants.dart';
 
 class LoginScreen extends StatefulWidget {
   final Function toggleView;
@@ -13,7 +13,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool check = null;
-  String email =' ';
+  String email = ' ';
   String password = ' ';
   bool _rememberMe = false;
   String user = ' ';
@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
               hintText: 'Enter your Email',
               hintStyle: kHintTextStyle,
             ),
-            onChanged: (val){
+            onChanged: (val) {
               setState(() => email = val);
             },
           ),
@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
               hintText: 'Enter your Password',
               hintStyle: kHintTextStyle,
             ),
-            onChanged: (val){
+            onChanged: (val) {
               setState(() => password = val);
             },
           ),
@@ -140,9 +140,8 @@ class _LoginScreenState extends State<LoginScreen> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () async{
-          print(email);
-          print(password);
+        onPressed: () async {
+          signInWithEmail(email, password);
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
@@ -219,15 +218,12 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           _buildSocialBtn(
-            ()  {
-              signInWithGoogle().whenComplete((){
+            () {
+              signInWithGoogle().whenComplete(() {
                 Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context){
-                      return FirstScreen();
-                    }
-                  ),
-
+                  MaterialPageRoute(builder: (context) {
+                    return FirstScreen();
+                  }),
                 );
               });
             },
@@ -273,7 +269,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:AnnotatedRegion<SystemUiOverlayStyle>(
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark,
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
