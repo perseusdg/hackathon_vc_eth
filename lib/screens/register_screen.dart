@@ -77,6 +77,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String confirmPassword = null;
   bool firstRegister = false;
   bool same = null;
+  String name = null;
+
+  Widget _buildUsernameTF() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Name',
+          style: kLabelStyle,
+        ),
+        SizedBox(
+          height: 10.0,
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextField(
+            keyboardType: TextInputType.emailAddress,
+            style: TextStyle(color: Colors.white, fontFamily: 'OpenSans'),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.person,
+                color: Colors.white,
+              ),
+            ),
+            onChanged: (val) {
+              setState(() => name = val);
+            },
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget _buildEmailTF() {
     return Column(
@@ -199,7 +235,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             if (same == false) {
               infoDialog(context, 'Error', 'Please Enter Matching Passwords');
             } else {
-              signupwithemail(email, confirmPassword).whenComplete(() {
+              signupwithemail(email, confirmPassword, name).whenComplete(() {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
                   return FirstScreen();
@@ -369,6 +405,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      _buildUsernameTF(),
                       SizedBox(height: 20.0),
                       _buildEmailTF(),
                       SizedBox(height: 20.0),

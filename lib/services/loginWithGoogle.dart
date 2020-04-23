@@ -39,16 +39,21 @@ Future<bool> signInWithGoogle() async {
   assert(user.uid == currentUser.uid);
 }
 
-Future<bool> signupwithemail(String emailS, String passwordS) async {
+Future<bool> signupwithemail(
+    String emailS, String passwordS, String nameS) async {
   AuthResult result = await _auth.createUserWithEmailAndPassword(
       email: emailS, password: passwordS);
   FirebaseUser user = result.user;
-  assert(user != null);
-  assert(await user.getIdToken() != null);
-  uid = user.uid;
-  name = user.displayName;
-  email = user.email;
-  imageUrl = user.photoUrl;
+  var info = new UserUpdateInfo();
+  info.displayName = nameS;
+  await user.updateProfile(info);
+  await user.reload();
+  final FirebaseUser currentUser = await _auth.currentUser();
+  assert(user.uid == currentUser.uid);
+
+  uid = currentUser.uid;
+  email = currentUser.email;
+  name = currentUser.displayName;
 }
 
 Future<bool> signInWithEmail(String emailS, String passwordS) async {
