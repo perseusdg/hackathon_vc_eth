@@ -4,7 +4,7 @@ import 'package:hackathon/main _afterSignIn.dart';
 import 'package:hackathon/services/loginWithGoogle.dart';
 
 void main() {
-  if (uid != null)
+  if (uid = null)
     return runApp(MyApp());
   else
     return runApp(MySideBarApp());
