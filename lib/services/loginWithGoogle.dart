@@ -8,6 +8,7 @@ String name;
 String email;
 String displayName;
 String uid;
+bool isSignedIn;
 
 Future<bool> signInWithGoogle() async {
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
@@ -37,6 +38,7 @@ Future<bool> signInWithGoogle() async {
 
   final FirebaseUser currentUser = await _auth.currentUser();
   assert(user.uid == currentUser.uid);
+  isSignedIn = true;
 }
 
 Future<bool> signupwithemail(
@@ -54,6 +56,7 @@ Future<bool> signupwithemail(
   uid = currentUser.uid;
   email = currentUser.email;
   name = currentUser.displayName;
+  isSignedIn = true;
 }
 
 Future<bool> signInWithEmail(String emailS, String passwordS) async {
@@ -68,11 +71,11 @@ Future<bool> signInWithEmail(String emailS, String passwordS) async {
   email = user.email;
   name = user.displayName;
   imageUrl = user.photoUrl;
+  isSignedIn = true;
 }
 
 void signOutGoogle() async {
   await _auth.signOut();
   await googleSignIn.signOut();
-
-  print("User Sign Out");
+  isSignedIn = false;
 }
