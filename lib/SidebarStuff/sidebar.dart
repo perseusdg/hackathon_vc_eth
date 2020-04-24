@@ -2,7 +2,10 @@ import 'package:hackathon/SidebarStuff/mobile_sidebar.dart';
 import 'package:hackathon/SidebarStuff/YourDefaultPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hackathon/SidebarStuff/share_us.dart';
+import 'package:hackathon/SidebarStuff/report_bug.dart';
 import 'package:hackathon/screens/settings_screen.dart';
+import 'package:hackathon/SidebarStuff/Feed.dart';
 
 TabChild sideBarListObjGeneric(Icon customicon,String text, Color colortobepassed){
   return TabChild(
@@ -20,6 +23,8 @@ TabChild sideBarListObjSpecific(Icon customicon,String text, Color colortobepass
   );
 }
 
+List<String> titles=['Your feed','Your Favs','Your likes', 'Your Profile','Settings', 'Share the App','Report a Bug','Contact Us'];
+
 // <Frontend>
 class SideBarScreen extends StatefulWidget {
   final Function(ThemeData) onThemeChange;
@@ -33,7 +38,8 @@ class _SideBarScreen extends State<SideBarScreen> {
   final Function(ThemeData) onThemeChange;
   int index = 0;
   double iconsize = 40.0;
-  bool searching = true;
+  bool searching = false;
+  String sideBarTitle='Dashboard';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -45,6 +51,7 @@ class _SideBarScreen extends State<SideBarScreen> {
             if (mounted)
               setState(() {
                 index = val;
+                sideBarTitle=titles[val];
               });
           },
           isSearching: searching,
@@ -56,24 +63,39 @@ class _SideBarScreen extends State<SideBarScreen> {
           },
           titleBuilder: (context) {
             return FancyTitle(
-              title: Text("My Logo"),
+              title: Text(titles[index], style: TextStyle(fontSize: 20),),
               logo: FlutterLogo(),
             );
           },
-          showSearchButton: true,
+          showSearchButton: false,
           tabs: <TabChild>[
+            sideBarListObjSpecific(Icon(Icons.subscriptions,color: Colors.deepOrangeAccent,size: iconsize,),'Your Feed', Colors.red[colorDarkness],MyVideoPlayer()),
             sideBarListObjGeneric(Icon(Icons.favorite,color: Colors.pinkAccent,size: iconsize,),'Your Favs',Colors.pink[colorDarkness]),
             sideBarListObjGeneric(Icon(Icons.thumb_up,color: Colors.blue,size: iconsize,),'Your Likes',Colors.blue[colorDarkness]),
-            sideBarListObjGeneric(Icon(Icons.chat,color: Colors.green,size: iconsize,),'Your Chats',Colors.green[colorDarkness]),
             sideBarListObjGeneric(Icon(Icons.account_circle,color: Colors.deepOrangeAccent,size: iconsize,),'Your Profile', Colors.red[colorDarkness]),
             sideBarListObjSpecific(Icon(Icons.settings,color: Colors.grey,size: iconsize,),'Settings', Colors.grey[colorDarkness], SettingsScreen(onThemeChange)),
-            sideBarListObjGeneric(Icon(Icons.share,color: Colors.green,size: iconsize,),'Share (AppName)',Colors.green[colorDarkness]),
-            sideBarListObjGeneric(Icon(Icons.bug_report,color: Colors.red,size: iconsize,),'Report A Bug',Colors.red[colorDarkness]),
+            sideBarListObjSpecific(Icon(Icons.share,color: Colors.green,size: iconsize,),'Share (AppName)',Colors.green[colorDarkness], ShareUs(bgcolour:Colors.green[colorDarkness])),
+            sideBarListObjSpecific(Icon(Icons.bug_report,color: Colors.red,size: iconsize,),'Report A Bug',Colors.red[colorDarkness], ReportBug(bgcolour:Colors.red[colorDarkness],)),
             sideBarListObjGeneric(Icon(Icons.contact_mail,color: Colors.blue,size: iconsize,),'Contact Us',Colors.blue[colorDarkness]),
           ],
         ),
       )
     );
+  }
+}
+
+class PageTitle extends StatefulWidget {
+  final Widget title;
+  PageTitle(this.title);
+  @override
+  _PageTitle createState() => _PageTitle(title);
+}
+
+class _PageTitle extends State<PageTitle> {
+    final Widget title;
+  _PageTitle(this.title);
+  Widget build(BuildContext context){
+    return title;
   }
 }
 
@@ -84,8 +106,8 @@ class FancyTitle extends StatelessWidget {
     this.logo,
   }) : super(key: key);
 
-  final Widget title;
   final Widget logo;
+  final Widget title;
 
   @override
   Widget build(BuildContext context) {
@@ -95,8 +117,8 @@ class FancyTitle extends StatelessWidget {
     return Row(
       children: <Widget>[
         logo,
-        Container(width: 4.0),
-        title,
+        Container(width: 8.0),
+        PageTitle(title),
       ],
     );
   }
