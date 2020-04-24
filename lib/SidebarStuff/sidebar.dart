@@ -72,6 +72,7 @@ class _SideBarScreen extends State<SideBarScreen> {
 
   Widget setSpecificHome() {
     getfirebasedata();
+    print(industry);
     if (industry == 'startup') {
       return StartupList();
     } else {

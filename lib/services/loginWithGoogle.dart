@@ -32,13 +32,13 @@ Future<bool> signInWithGoogle() async {
   email = user.email;
   imageUrl = user.photoUrl;
   uid = user.uid;
+  isSignedIn = true;
 
   assert(!user.isAnonymous);
   assert(await user.getIdToken() != null);
 
   final FirebaseUser currentUser = await _auth.currentUser();
   assert(user.uid == currentUser.uid);
-  isSignedIn = true;
 }
 
 Future<bool> signupwithemail(
@@ -56,7 +56,6 @@ Future<bool> signupwithemail(
   uid = currentUser.uid;
   email = currentUser.email;
   name = currentUser.displayName;
-  isSignedIn = true;
 }
 
 Future<bool> signInWithEmail(String emailS, String passwordS) async {

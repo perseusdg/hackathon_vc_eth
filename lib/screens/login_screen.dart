@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hackathon/screens/firstscreenRegister.dart';
+import 'package:hackathon/main _afterSignIn.dart';
 import 'package:hackathon/services/loginWithGoogle.dart';
 import 'package:hackathon/utilities/constants.dart';
 
@@ -216,7 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
               signInWithGoogle().whenComplete(() {
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) {
-                    return FirstScreen();
+                    return MySideBarApp();
                   }),
                 );
               });
