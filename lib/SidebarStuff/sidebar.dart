@@ -3,9 +3,9 @@ import 'package:hackathon/SidebarStuff/YourDefaultPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hackathon/SidebarStuff/share_us.dart';
-import 'package:hackathon/SidebarStuff/report_bug.dart';
 import 'package:hackathon/screens/settings_screen.dart';
-import 'package:hackathon/SidebarStuff/Feed.dart';
+import 'package:hackathon/screens/investor/investorHome.dart';
+import 'package:hackathon/screens/startup/startupHome.dart';
 
 TabChild sideBarListObjGeneric(Icon customicon,String text, Color colortobepassed){
   return TabChild(
@@ -23,7 +23,7 @@ TabChild sideBarListObjSpecific(Icon customicon,String text, Color colortobepass
   );
 }
 
-List<String> titles=['Your feed','Your Favs','Your likes', 'Your Profile','Settings', 'Share the App','Report a Bug','Contact Us'];
+List<String> titles=['My Home','My feed','My Favs','My likes', 'My Profile','Settings', 'Share the App','Report a Bug','Contact Us'];
 
 // <Frontend>
 class SideBarScreen extends StatefulWidget {
@@ -39,7 +39,16 @@ class _SideBarScreen extends State<SideBarScreen> {
   int index = 0;
   double iconsize = 40.0;
   bool searching = false;
-  String sideBarTitle='Dashboard';
+  String sideBarTitle;
+  
+  Widget setSpecificHome(){
+    if (1>0/*CHECK HERE IF THE CLIENT IS A STARTUP*/) {
+      return StartupList();
+    } else{
+      return InvestorList();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -69,14 +78,15 @@ class _SideBarScreen extends State<SideBarScreen> {
           },
           showSearchButton: false,
           tabs: <TabChild>[
-            sideBarListObjSpecific(Icon(Icons.subscriptions,color: Colors.deepOrangeAccent,size: iconsize,),'Your Feed', Colors.red[colorDarkness],MyVideoPlayer()),
-            sideBarListObjGeneric(Icon(Icons.favorite,color: Colors.pinkAccent,size: iconsize,),'Your Favs',Colors.pink[colorDarkness]),
-            sideBarListObjGeneric(Icon(Icons.thumb_up,color: Colors.blue,size: iconsize,),'Your Likes',Colors.blue[colorDarkness]),
-            sideBarListObjGeneric(Icon(Icons.account_circle,color: Colors.deepOrangeAccent,size: iconsize,),'Your Profile', Colors.red[colorDarkness]),
-            sideBarListObjSpecific(Icon(Icons.settings,color: Colors.grey,size: iconsize,),'Settings', Colors.grey[colorDarkness], SettingsScreen(onThemeChange)),
-            sideBarListObjSpecific(Icon(Icons.share,color: Colors.green,size: iconsize,),'Share (AppName)',Colors.green[colorDarkness], ShareUs(bgcolour:Colors.green[colorDarkness])),
-            sideBarListObjSpecific(Icon(Icons.bug_report,color: Colors.red,size: iconsize,),'Report A Bug',Colors.red[colorDarkness], ReportBug(bgcolour:Colors.red[colorDarkness],)),
-            sideBarListObjGeneric(Icon(Icons.contact_mail,color: Colors.blue,size: iconsize,),'Contact Us',Colors.blue[colorDarkness]),
+            sideBarListObjSpecific(Icon(Icons.home,color: Colors.grey,size: iconsize,),titles[0], Colors.blue[colorDarkness], setSpecificHome()),
+            sideBarListObjGeneric(Icon(Icons.subscriptions,color: Colors.deepOrangeAccent,size: iconsize,),titles[1], Colors.red[colorDarkness]),
+            sideBarListObjGeneric(Icon(Icons.favorite,color: Colors.pinkAccent,size: iconsize,),titles[2],Colors.pink[colorDarkness]),
+            sideBarListObjGeneric(Icon(Icons.thumb_up,color: Colors.blue,size: iconsize,),titles[3],Colors.blue[colorDarkness]),
+            sideBarListObjGeneric(Icon(Icons.account_circle,color: Colors.deepOrangeAccent,size: iconsize,),titles[4], Colors.red[colorDarkness]),
+            sideBarListObjSpecific(Icon(Icons.settings,color: Colors.grey,size: iconsize,),titles[5], Colors.grey[colorDarkness], SettingsScreen(onThemeChange)),
+            sideBarListObjSpecific(Icon(Icons.share,color: Colors.green,size: iconsize,),titles[6],Colors.green[colorDarkness], ShareUs(bgcolour:Colors.green[colorDarkness])),
+            sideBarListObjGeneric(Icon(Icons.bug_report,color: Colors.red,size: iconsize,),titles[7],Colors.red[colorDarkness]),
+            sideBarListObjGeneric(Icon(Icons.contact_mail,color: Colors.blue,size: iconsize,),titles[8],Colors.blue[colorDarkness]),
           ],
         ),
       )
