@@ -6,14 +6,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hackathon/SidebarStuff/sidebar.dart';
 import 'package:hackathon/screens/settings_screen.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatefulWidget{
+class MySideBarApp extends StatefulWidget{
     @override
-  _MyApp createState() => _MyApp();
+  _MySideBarApp createState() => _MySideBarApp();
 }
 
-class _MyApp extends State<MyApp> {
+class _MySideBarApp extends State<MySideBarApp> {
     void initState() {
     super.initState();
     getValue();
